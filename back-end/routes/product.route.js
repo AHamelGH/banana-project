@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const validateObjectId = (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-        res.status(204).send(); // Send back the response early
+        res.status(204).send();
     } else {
         next(); // This calls the standard route for GET/POST/PUT/DELETE with (req, res)
     }
@@ -22,7 +22,6 @@ router.get('/', async (req, res) => {
 
 // GET PRODUCT BY ID
 router.get('/:id', validateObjectId, async (req, res) => {
-    // req.params.id extracts the id number from the URL
     try {
         const product = await findProductById(req.params.id);
         res.json(product);
@@ -38,7 +37,6 @@ router.get('/:id', validateObjectId, async (req, res) => {
 // CREATE A PRODUCT
 router.post('/', async (req, res) => {
     try {
-        // For POST requests, we send the data through the request body
         const product = await createProduct(req.body);
         res.status(201).json(product);
     } catch (err) {

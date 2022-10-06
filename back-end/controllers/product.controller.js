@@ -5,7 +5,7 @@ const Product = require('../models/Product.model.js');
 // Find all products in the system
 const findAllProducts = async () => await Product.find();
 
-
+// Find a specific product
 const findProductById = async id => {
     try {
 
@@ -22,7 +22,7 @@ const findProductById = async id => {
     }
 };
 
-
+// Create a new product
 const createProduct = async productToSave => {
     try {
         const product = new Product(productToSave);
@@ -34,7 +34,7 @@ const createProduct = async productToSave => {
     }
 }
 
-
+// Update specific product
 const updateProduct = async (id, productToUpdate) => {
     try {
         await Product.findByIdAndUpdate(id, productToUpdate);
@@ -43,8 +43,8 @@ const updateProduct = async (id, productToUpdate) => {
     }
 };
 
-
+// Delete specific product
 const deleteProductById = async id => await Product.findByIdAndDelete(id);
 
-//All methods to be referrenced by routes
+// All methods to be referrenced by routes
 module.exports = { findAllProducts, findProductById, createProduct, updateProduct, deleteProductById };
