@@ -12,7 +12,6 @@ const Schema = mongoose.Schema;
  * Description
  * Price per Unit
  * Supplier
- * Warehouse Locations
  */
 
 const productSchema = new Schema({
@@ -21,7 +20,6 @@ const productSchema = new Schema({
     supplier: String,
     description: String,
     price: Number,
-    warehouses: [Number],
     imageUrl: String
 });
 
