@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 export const ProductForm = ({setProductList}) => {
-    
+
 
     const [productData, setProductData] = useState({
 
@@ -39,7 +39,6 @@ export const ProductForm = ({setProductList}) => {
                 supplier: productData.productSupplier,
                 description: productData.productDescription,
                 price: productData.productPrice,
-                warehouses: productData.warehouses,
                 imageUrl: productData.imageUrl
             });
             console.log('New product created.')
