@@ -20,8 +20,7 @@ const Schema = mongoose.Schema;
     name: String,
     location: String,
     maxCapacity: Number,
-    //currCapacity: Number,
-    products: [{_id: Number,
+    products: [{productId: Number,
                 volume: Number}]
 });
 

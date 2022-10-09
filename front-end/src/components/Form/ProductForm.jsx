@@ -5,9 +5,8 @@ import axios from "axios";
 
 
 export const ProductForm = ({setProductList}) => {
+    
 
-    // You may have the state be an object or break it out into separate states
-    // Personally, I would advocate using react-hook-form and yup
     const [productData, setProductData] = useState({
 
         productName: '',
