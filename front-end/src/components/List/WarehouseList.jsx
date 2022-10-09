@@ -61,7 +61,7 @@ export const WarehouseList = () => {
                         <th>Warehouse ID</th>
                         <th>Name</th>
                         <th>Location</th>
-                        <th>Maximum Capacity</th>
+                        <th>Max Capacity</th>
                         <th>Products</th>
                     </tr>
                 </thead>

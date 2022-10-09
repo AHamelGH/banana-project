@@ -12,8 +12,8 @@ export const ProductForm = ({setProductList}) => {
         productName: '',
         productSupplier: '',
         productDescription: '',
-        productPrice: null,
-        imageUrl: null
+        productPrice: 0,
+        imageUrl: ''
 
     });
 
@@ -23,8 +23,8 @@ export const ProductForm = ({setProductList}) => {
             productName: '',
             productSupplier: '',
             productDescription: '',
-            productPrice: null,
-            imageUrl: null
+            productPrice: 0,
+            imageUrl: ''
 
         });
     }
