@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ProductForm } from '../Form/WarehouseForm';
+import { WarehouseForm } from '../Form/WarehouseForm';
 
     /**
      * For UPDATE AND DELETE operations:
@@ -19,7 +19,7 @@ import { ProductForm } from '../Form/WarehouseForm';
      *      from the list OR refetch data 
      */
 
-const Warehouse = ({warehouse: {name, location, maxCapacity, products}}) => {
+const Warehouse = ({warehouse: {_id, name, location, maxCapacity, products}}) => {
 
     // const [isEdit, toggleIsEdit] = useState(false);
 
@@ -29,6 +29,7 @@ const Warehouse = ({warehouse: {name, location, maxCapacity, products}}) => {
     // }
     return (
         <tr>
+            <td className="row-item">{_id}</td>
             <td className="row-item">{name}</td>
             <td className="row-item">{location}</td>
             <td className="row-item">{maxCapacity}</td>
@@ -53,10 +54,11 @@ export const WarehouseList = () => {
 
     return (
         <>
-            <ProductForm setProductList={setWarehouseList}/>
+            <WarehouseForm setWarehouseList={setWarehouseList}/>
             <table>
                 <thead>
                     <tr>
+                        <th>Warehouse ID</th>
                         <th>Name</th>
                         <th>Location</th>
                         <th>Maximum Capacity</th>

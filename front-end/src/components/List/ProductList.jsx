@@ -19,7 +19,7 @@ import { ProductForm } from '../Form/ProductForm';
      *      from the list OR refetch data 
      */
 
-const Product = ({product: {name, supplier, description, price, imageUrl}}) => {
+const Product = ({product: {_id, name, supplier, description, price, imageUrl}}) => {
 
     // const [isEdit, toggleIsEdit] = useState(false);
 
@@ -29,6 +29,7 @@ const Product = ({product: {name, supplier, description, price, imageUrl}}) => {
     // }
     return (
         <tr>
+            <td className="row-item">{_id}</td>
             <td className="row-item">{name}</td>
             <td className="row-item">{supplier}</td>
             <td className="row-item">{description}</td>
@@ -58,6 +59,7 @@ export const ProductList = () => {
             <table>
                 <thead>
                     <tr>
+                        <th>Product ID</th>
                         <th>Name</th>
                         <th>Supplier</th>
                         <th>Description</th>
