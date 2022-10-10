@@ -5,29 +5,9 @@ import axios from 'axios';
 import { WarehouseForm } from '../Form/WarehouseForm';
 import '../../Style/tables.css'
 
-    /**
-     * For UPDATE AND DELETE operations:
-     * 
-     * PUT: 
-     *      Have two modes to your table row, update mode and not updating (isEdit) state
-     *      Use conditional rendering to render the table as normal if !isEdit
-     *      If isEdit is true, instead, display a altered table where each data is an input
-     *      Or create a form/modal that updates a given pokemon when you click on the edit button
-     * 
-     * DELETE:
-     *      Add a delete button to the table row and clicking on it extract the _id from the pokemon object
-     *      and shoots off a DELETE http request using axios. From there, manually the remove the pokemon
-     *      from the list OR refetch data 
-     */
 
 const Warehouse = ({warehouse: {_id, name, location, maxCapacity, currCapacity, product}}) => {
 
-    // const [isEdit, toggleIsEdit] = useState(false);
-
-    // This would be altered row that's in edit mode
-    // if (isEdit) {
-    //     return (<></>)
-    // }
     return (
         <tr>
             <td className="row-item">{_id}</td>
@@ -44,11 +24,8 @@ export const WarehouseList = () => {
 
     const [warehouseList, setWarehouseList] = useState([]);
     
-    // React does NOT support making this callback asynchronous
-    // So you MUST use .then()/.catch() OR have it call another async function to use await
     useEffect(() => {
-        
-        // Move this to store. Get the res.data and use dispatch(setPokemonList(res.data))
+
         axios.get('http://localhost:9000/warehouse')
             .then(res => { setWarehouseList(res.data); console.log(res.data) })
             .catch(err => console.error(err));
