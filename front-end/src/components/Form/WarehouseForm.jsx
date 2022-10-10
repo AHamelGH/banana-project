@@ -56,17 +56,17 @@ export const WarehouseForm = ({setWarehouseList}) => {
             product: warehouseData.product
         }
 
+        const isValid = await validWarehouseSchema.isValid(formData);
+            console.log(isValid);
+            if (!isValid){
+                throw new Error();
+        }
+
         if (modifierValue === "Create") {
 
             console.log('CREATING');
 
             try {
-
-                const isValid = await validWarehouseSchema.isValid(formData);
-                console.log(isValid);
-                if (!isValid){
-                    throw new Error();
-                }
 
                 const res = await axios.post('http://localhost:9000/warehouse', formData);
 
@@ -85,13 +85,7 @@ export const WarehouseForm = ({setWarehouseList}) => {
             console.log('UPDATING');
 
             try {
-                const res = await axios.put(`http://localhost:9000/warehouse/${warehouseData._id}`, {
-                    name: warehouseData.warehouseName,
-                    location: warehouseData.warehouseLocation,
-                    maxCapacity: warehouseData.maxCapacity,
-                    currCapacity: warehouseData.currCapacity,
-                    product: warehouseData.product
-                });
+                const res = await axios.put(`http://localhost:9000/warehouse/${warehouseData._id}`, formData);
                 console.log('Warehouse updated.');
                 console.log(res.data);
     

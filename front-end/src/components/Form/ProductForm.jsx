@@ -49,27 +49,27 @@ export const ProductForm = ({setProductList}) => {
         // event.preventDefault() will prevent the page refresh
         event.preventDefault();
 
+        const formData = {
+            name: productData.productName,
+            supplier: productData.productSupplier,
+            description: productData.productDescription,
+            price: productData.productPrice,
+            imageUrl: productData.imageUrl
+        }
+
+        const isValid = await validProductSchema.isValid(formData);
+        console.log(isValid);
+        if (!isValid){
+            throw new Error();
+        }
+
         if (modifierValue === "Create"){
 
             console.log("CREATING");
 
             try {
 
-                const newProduct = {
-                    name: productData.productName,
-                    supplier: productData.productSupplier,
-                    description: productData.productDescription,
-                    price: productData.productPrice,
-                    imageUrl: productData.imageUrl
-                }
-
-                const isValid = await validProductSchema.isValid(newProduct);
-                console.log(isValid);
-                if (!isValid){
-                    throw new Error();
-                }
-
-                const res = await axios.post('http://localhost:9000/product', newProduct);
+                const res = await axios.post('http://localhost:9000/product', formData);
                 
                 console.log('New product created.')
                 console.log(res.data);
@@ -86,13 +86,7 @@ export const ProductForm = ({setProductList}) => {
         else if (modifierValue === "Update"){
 
             try {
-                const res = await axios.put(`http://localhost:9000/product/${productData._id}`, {
-                    name: productData.productName,
-                    supplier: productData.productSupplier,
-                    description: productData.productDescription,
-                    price: productData.productPrice,
-                    imageUrl: productData.imageUrl
-                });
+                const res = await axios.put(`http://localhost:9000/product/${productData._id}`, formData);
                 console.log('Product updated.')
                 console.log(res.data);
     
