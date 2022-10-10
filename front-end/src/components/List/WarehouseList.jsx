@@ -19,7 +19,7 @@ import { WarehouseForm } from '../Form/WarehouseForm';
      *      from the list OR refetch data 
      */
 
-const Warehouse = ({warehouse: {_id, name, location, maxCapacity, products}}) => {
+const Warehouse = ({warehouse: {_id, name, location, maxCapacity, currCapacity, product}}) => {
 
     // const [isEdit, toggleIsEdit] = useState(false);
 
@@ -33,7 +33,8 @@ const Warehouse = ({warehouse: {_id, name, location, maxCapacity, products}}) =>
             <td className="row-item">{name}</td>
             <td className="row-item">{location}</td>
             <td className="row-item">{maxCapacity}</td>
-            <td className="row-item">{products}</td>
+            <td className="row-item">{currCapacity}</td>
+            <td className="row-item">{product}</td>
         </tr>
     );
 }
@@ -62,7 +63,8 @@ export const WarehouseList = () => {
                         <th>Name</th>
                         <th>Location</th>
                         <th>Max Capacity</th>
-                        <th>Products</th>
+                        <th>Current Capacity</th>
+                        <th>Product</th>
                     </tr>
                 </thead>
                 <tbody>

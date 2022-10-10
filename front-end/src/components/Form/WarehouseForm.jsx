@@ -2,6 +2,7 @@
 
 import { useState/*, useEffect*/ } from "react";
 import axios from "axios";
+import { validWarehouseSchema } from "../../Validation/WarehouseValidation";
 
 
 export const WarehouseForm = ({setWarehouseList}) => {
@@ -12,9 +13,23 @@ export const WarehouseForm = ({setWarehouseList}) => {
         warehouseName: '',
         warehouseLocation: '',
         maxCapacity: 0,
-        products: []
+        currCapacity: 0,
+        product: ''
 
     });
+
+    const handleClear = () => {
+        setWarehouseData({
+
+            _id: '',
+            warehouseName: '',
+            warehouseLocation: '',
+            maxCapacity: 0,
+            currCapacity: 0,
+            product: ''
+
+        });
+    }
 
     const [modifierValue, setModifierValue] = useState("Create");
 
@@ -28,43 +43,33 @@ export const WarehouseForm = ({setWarehouseList}) => {
         setModifierValue("Delete");
     };
 
-    const handleClear = () => {
-        setWarehouseData({
-
-            _id: '',
-            warehouseName: '',
-            warehouseLocation: '',
-            maxCapacity: 0,
-            products: []
-
-        });
-    }
-
-
-    /*const handleCreateChange = () => {
-        setCreateValue(!createValue);
-    };
-
-    const handleUpdateChange = () => {
-        setUpdateValue(!updateValue);
-    };*/
-
 
     const handleSubmit = async (event) => {
         // event.preventDefault() will prevent the page refresh
         event.preventDefault();
+
+        const formData = {
+            name: warehouseData.warehouseName,
+            location: warehouseData.warehouseLocation,
+            maxCapacity: warehouseData.maxCapacity,
+            currCapacity: warehouseData.currCapacity,
+            product: warehouseData.product
+        }
 
         if (modifierValue === "Create") {
 
             console.log('CREATING');
 
             try {
-                const res = await axios.post('http://localhost:9000/warehouse', {
-                    name: warehouseData.warehouseName,
-                    location: warehouseData.warehouseLocation,
-                    maxCapacity: warehouseData.maxCapacity,
-                    products: warehouseData.products
-                });
+
+                const isValid = await validWarehouseSchema.isValid(formData);
+                console.log(isValid);
+                if (!isValid){
+                    throw new Error();
+                }
+
+                const res = await axios.post('http://localhost:9000/warehouse', formData);
+
                 console.log('New warehouse created.');
                 console.log(res.data);
     
@@ -84,7 +89,8 @@ export const WarehouseForm = ({setWarehouseList}) => {
                     name: warehouseData.warehouseName,
                     location: warehouseData.warehouseLocation,
                     maxCapacity: warehouseData.maxCapacity,
-                    products: warehouseData.products
+                    currCapacity: warehouseData.currCapacity,
+                    product: warehouseData.product
                 });
                 console.log('Warehouse updated.');
                 console.log(res.data);
@@ -101,11 +107,11 @@ export const WarehouseForm = ({setWarehouseList}) => {
             console.log('DELETING');
 
             try {
-                await axios.delete(`http://localhost:9000/warehouse/${warehouseData._id}`);
+                const res = await axios.delete(`http://localhost:9000/warehouse/${warehouseData._id}`);
                 console.log('Warehouse deleted.');
-                //console.log(res.data);
+                console.log(res.data);
     
-                //setWarehouseList(warehouseList => [...warehouseList, res.data]);
+                setWarehouseList(warehouseList => [...warehouseList, res.data]);
     
                 event.target.reset();
                 handleClear();
@@ -185,7 +191,26 @@ export const WarehouseForm = ({setWarehouseList}) => {
                         type="number"
                         value={warehouseData.maxCapacity}
                         onChange={e => setWarehouseData({...warehouseData, maxCapacity: e.target.value})}
-                        placeholder="Max. Units"
+                        placeholder="Max. Volume"
+                    />
+                </div>
+                <div hidden={modifierValue==="Delete"}>
+                    <label htmlFor="currCapacity">Current Capacity: </label>
+                    <input 
+                        id="currCapacity"
+                        type="number"
+                        value={warehouseData.currCapacity}
+                        onChange={e => setWarehouseData({...warehouseData, currCapacity: e.target.value})}
+                        placeholder="Current Volume"
+                    />
+                </div>
+                <div hidden={modifierValue==="Delete"}>
+                    <label htmlFor="product-id">Product ID: </label>
+                    <input 
+                        id="product-id"
+                        value={warehouseData.product}
+                        onChange={e => setWarehouseData({...warehouseData, product: e.target.value})}
+                        placeholder="Product ID Value"
                     />
                 </div>
             </div>
