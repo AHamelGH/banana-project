@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { WarehouseForm } from '../Form/WarehouseForm';
+import '../../Style/tables.css'
 
     /**
      * For UPDATE AND DELETE operations:
@@ -56,21 +57,24 @@ export const WarehouseList = () => {
     return (
         <>
             <WarehouseForm setWarehouseList={setWarehouseList}/>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Warehouse ID</th>
-                        <th>Name</th>
-                        <th>Location</th>
-                        <th>Max Capacity</th>
-                        <th>Current Capacity</th>
-                        <th>Product</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {warehouseList.map(warehouse => <Warehouse key={warehouse._id} warehouse={warehouse}/>)}
-                </tbody>
-            </table>
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Warehouse ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Max Capacity</th>
+                            <th>Current Capacity</th>
+                            <th>Product</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {warehouseList.map(warehouse => <Warehouse key={warehouse._id} warehouse={warehouse}/>)}
+                    </tbody>
+                </table>
+            </div>
+            
         </>
     );
 }

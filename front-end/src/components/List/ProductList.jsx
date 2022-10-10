@@ -56,21 +56,24 @@ export const ProductList = () => {
     return (
         <>
             <ProductForm setProductList={setProductList}/>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product ID</th>
-                        <th>Name</th>
-                        <th>Supplier</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Image</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {productList.map(product => <Product key={product._id} product={product}/>)}
-                </tbody>
-            </table>
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Name</th>
+                            <th>Supplier</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {productList.map(product => <Product key={product._id} product={product}/>)}
+                    </tbody>
+                </table>
+            </div>
+            
         </>
     );
 }
